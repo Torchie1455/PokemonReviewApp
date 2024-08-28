@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2024-08-28T01:45:19.5416722Z"
+    },
+    "secrets1": {
+      "restored": true,
+      "restoreTime": "2024-08-28T01:45:00.2792076Z"
+    }
+  },
+  "parameters": {
+    "mssql1.subscriptionId": {
+      "Name": "mssql1.subscriptionId",
+      "Type": "subscription",
+      "Value": "e8f80c58-c24d-454a-8b86-547f666ad60f"
+    },
+    "mssql1.resourceGroupName": {
+      "Name": "mssql1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "kreed-pokemonapp_group"
+    }
+  }
+}

@@ -12,6 +12,7 @@ public class OwnerRepository : IOwnerRepository
     {
         _context = context;
     }
+
     public ICollection<Owner> GetOwners()
     {
         return _context.Owners.ToList();
@@ -19,7 +20,7 @@ public class OwnerRepository : IOwnerRepository
 
     public Owner GetOwner(int ownerId)
     {
-        return _context.Owners.Where(o=> o.Id == ownerId ).SingleOrDefault();
+        return _context.Owners.Where(o => o.Id == ownerId).SingleOrDefault();
     }
 
     public ICollection<Owner> GetOwnerOfAPokemon(int pokeId)
@@ -35,5 +36,28 @@ public class OwnerRepository : IOwnerRepository
     public bool OwnerExists(int ownerId)
     {
         return _context.Owners.Any(o => o.Id == ownerId);
+    }
+
+    public bool CreateOwner(Owner owner)
+    {
+        _context.Add(owner);
+        return Save();
+    }
+
+    public bool UpdateOwner(Owner owner)
+    {
+        _context.Update(owner);
+        return Save();    }
+
+    public bool DeleteOwner(Owner owner)
+    {
+        _context.Remove(owner);
+        return Save();    
+    }
+
+    public bool Save()
+    {
+        var saved = _context.SaveChanges();
+        return saved > 0 ? true : false;
     }
 }

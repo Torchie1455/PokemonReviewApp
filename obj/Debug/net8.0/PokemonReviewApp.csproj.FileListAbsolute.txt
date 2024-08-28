@@ -137,3 +137,4 @@ C:\Users\Kevin\source\repos\PokemonReviewApp\PokemonReviewApp\bin\Debug\net8.0\r
 C:\Users\Kevin\source\repos\PokemonReviewApp\PokemonReviewApp\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\Kevin\source\repos\PokemonReviewApp\PokemonReviewApp\bin\Debug\net8.0\PokemonClient\package-lock.json
 C:\Users\Kevin\source\repos\PokemonReviewApp\PokemonReviewApp\bin\Debug\net8.0\PokemonClient\package.json
+C:\Users\Kevin\source\repos\PokemonReviewApp\PokemonReviewApp\obj\Debug\net8.0\PokemonReviewApp.sourcelink.json

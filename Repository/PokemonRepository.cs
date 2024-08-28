@@ -1,4 +1,5 @@
-﻿using PokemonReviewApp.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PokemonReviewApp.Data;
 using PokemonReviewApp.Interfaces;
 using PokemonReviewApp.Models;
 
@@ -12,10 +13,13 @@ namespace PokemonReviewApp.Repository
             _context = context;
         }
 
-        public Pokemon GetPokemon(int id)
+        public Pokemon GetPokemon(int pokeId)
         {
-            return _context.Pokemon.Where(p => p.Id == id).FirstOrDefault();
-        }
+            return _context.Pokemon
+                .Include(p => p.PokemonOwners).ThenInclude(po => po.Owner)
+                .Include(p => p.PokemonCategories).ThenInclude(pc => pc.Category)
+                .FirstOrDefault(p => p.Id == pokeId);
+        }        
 
         public Pokemon GetPokemon(string name)
         {
@@ -32,12 +36,59 @@ namespace PokemonReviewApp.Repository
 
         public ICollection<Pokemon> GetPokemons()
         {
-            return _context.Pokemon.OrderBy(p => p.Id).ToList();
+            return _context.Pokemon
+                .Include(p => p.PokemonOwners)
+                    .ThenInclude(po => po.Owner)
+                .Include(p => p.PokemonCategories)
+                    .ThenInclude(pc => pc.Category)
+                .OrderBy(p => p.Id)
+                .ToList();        
         }
 
         public bool PokemonExists(int pokeId)
         {
             return _context.Pokemon.Any(p => p.Id == pokeId);
+        }
+
+        public bool CreatePokemon(int ownerId, int categoryId, Pokemon pokemon)
+        {
+            var pokemonOwnerEntity = _context.Owners.Where(a => a.Id == ownerId).FirstOrDefault();
+            var category = _context.Categories.Where(a => a.Id == categoryId).FirstOrDefault();
+
+            var pokemonOwner = new PokemonOwner()
+            {
+                Owner = pokemonOwnerEntity,
+                Pokemon = pokemon
+            };
+            _context.Add(pokemonOwner);
+            var pokemonCategory = new PokemonCategory()
+            {
+                Category = category,
+                Pokemon = pokemon
+            };
+            _context.Add(pokemonCategory);
+
+            _context.Add(pokemon);
+            return Save();
+        }
+
+        public bool UpdatePokemon(int ownerId, int categoryId, Pokemon pokemon)
+        {
+
+            _context.Update(pokemon);
+            return Save();        
+        }
+
+        public bool DeletePokemon(Pokemon pokemon)
+        {
+            _context.Remove(pokemon);
+            return Save();        
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
         }
     }
 }

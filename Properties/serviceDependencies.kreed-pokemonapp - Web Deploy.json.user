@@ -1,0 +1,45 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2024-08-28T01:21:37.5270888Z"
+    }
+  },
+  "parameters": {
+    "mssql1.subscriptionId": {
+      "Name": "mssql1.subscriptionId",
+      "Type": "subscription",
+      "Value": "e8f80c58-c24d-454a-8b86-547f666ad60f"
+    },
+    "kreed-pokemonapp.subscriptionId": {
+      "Name": "kreed-pokemonapp.subscriptionId",
+      "Type": "subscription",
+      "Value": "e8f80c58-c24d-454a-8b86-547f666ad60f"
+    },
+    "mssql1.resourceGroupLocation": {
+      "Name": "mssql1.resourceGroupLocation",
+      "Type": "location",
+      "Value": "eastus"
+    },
+    "kreed-pokemonapp.resourceName": {
+      "Name": "kreed-pokemonapp.resourceName",
+      "Type": null,
+      "Value": "kreed-pokemonapp"
+    },
+    "mssql1.resourceGroupName": {
+      "Name": "mssql1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "kreed-pokemonapp_group"
+    },
+    "kreed-pokemonapp.resourceGroupLocation": {
+      "Name": "kreed-pokemonapp.resourceGroupLocation",
+      "Type": null,
+      "Value": "eastus"
+    },
+    "kreed-pokemonapp.resourceGroupName": {
+      "Name": "kreed-pokemonapp.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "kreed-pokemonapp_group"
+    }
+  }
+}
