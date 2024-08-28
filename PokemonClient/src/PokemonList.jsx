@@ -27,10 +27,11 @@ function Pokemon({ pokemon, pokeCreate, pokeDelete, pokeUpdate }) {
 
     const handleEdit = (item) => {
         setEditingId(item.id);
+        console.log(item);
         setFormData({
             pokeId: item.id,
-            ownerId: item.owners[0].id,
-            catId: item.categories[0].id,
+            ownerId: item.pokemonOwners?.[0]?.ownerId || item.pokemonOwners?.[0]?.id || item.ownerId ,
+            catId: item.pokemonCategories?.[0]?.categoryId || item.pokemonCategories?.[0]?.id || item.catId,
             name: item.name,
         });
     };
@@ -91,7 +92,7 @@ function Pokemon({ pokemon, pokeCreate, pokeDelete, pokeUpdate }) {
                                 <br/>
                             </div>
                             <div>
-                                <button onClick={() => handleEdit(item)}>Edit</button>
+                                <button onClick={() => handleEdit(item)} className="edit-button">Edit</button>
                                 <button onClick={() => pokeDelete(item.id)} className="delete-button">
                                     Delete
                                 </button>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import PokemonList from './PokemonList.jsx';
 
-const API_URL = 'http://localhost:5139/api'
+const API_URL = 'https://kreed-pokemonapp-asbggnfegkgchcea.eastus-01.azurewebsites.net/api'
 
 function Pokemon() {
     const [pokemon, setPokemon] = useState([]);
@@ -24,8 +24,6 @@ function Pokemon() {
     const createPokemon = (item) => {
         const newPokemon = {
             name: item.name,
-            ownerId: item.ownerId,
-            catId: item.catId,
         };
 
         console.log(`add item: ${JSON.stringify(newPokemon)}`);
@@ -44,6 +42,7 @@ function Pokemon() {
                 return response.json();
             })
             .then(returnedItem => {
+                console.log(returnedItem);
                 setPokemon(prevPokemon => [...prevPokemon, returnedItem]);
             })
             .catch(error => {
@@ -84,6 +83,7 @@ function Pokemon() {
             body: JSON.stringify(updatePokemonData)
         })
             .then(() => {
+                console.log(updatedItem);
                 setPokemon(pokemon.map(item =>
                     item.id === updatedItem.pokeId
                         ? { ...updatedItem, id: updatedItem.pokeId }

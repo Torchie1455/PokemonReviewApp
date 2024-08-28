@@ -6,7 +6,10 @@ using PokemonReviewApp.Interfaces;
 using PokemonReviewApp.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
-//"DefaultConnection": "Data Source=Pluto\\SQLEXPRESS;Initial Catalog=pokemonreview;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False"
+
+// Configure the connection string for Azure SQL Server
+// Replace with your Azure SQL connection string if deploying to Azure
+builder.Configuration["DefaultConnection"] = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Add services to the container.
 
@@ -22,11 +25,11 @@ builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
 builder.Services.AddScoped<IReviewerRepository, ReviewerRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
-// Configure CORS
+// Configure CORS to allow your React app
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
-        builder => builder
+        corsBuilder => corsBuilder
             .WithOrigins("http://localhost:3001") // Replace with your React app's URL
             .AllowAnyMethod()
             .AllowAnyHeader());
@@ -38,7 +41,7 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Add Swagger/OpenAPI configuration
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -59,12 +62,15 @@ void SeedData(IHost app)
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pokemon Review API v1");
+        c.RoutePrefix = string.Empty; // Serve Swagger UI at app's root
+    });
 }
-
 
 app.UseHttpsRedirection();
 

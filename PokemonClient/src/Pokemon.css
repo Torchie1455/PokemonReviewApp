@@ -80,3 +80,19 @@
 .delete-button:hover {
     background-color: #c82333;
 }
+/* Add this CSS to your existing PokemonForm.css */
+
+.edit-button {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #28a745; /* Green background */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.edit-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
