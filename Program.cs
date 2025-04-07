@@ -30,10 +30,12 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
         corsBuilder => corsBuilder
-            .WithOrigins("http://localhost:3001") // Replace with your React app's URL
+            .WithOrigins("http://localhost:3001", 
+                "https://happy-sky-04f252d0f.5.azurestaticapps.net") // Removed trailing slash
             .AllowAnyMethod()
             .AllowAnyHeader());
 });
+
 
 // Configure database context
 builder.Services.AddDbContext<DataContext>(options =>
